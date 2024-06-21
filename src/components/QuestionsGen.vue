@@ -2,6 +2,7 @@
   <div v-show="showContent">
     <h2 class="centered-text">口算生成器
       <el-button type="primary" @click="showDrawer">预览</el-button>
+      <el-button type="danger" @click="resetCnt">重置</el-button>
     </h2>
     <div class="demo-collapse">
       <el-collapse v-model="activeNames" @change="drawerHandleChange">
@@ -261,6 +262,43 @@ const toggleDrawer = () => {
   showContent.value = !showContent.value;
 };
 
+const defaultJson = {
+  iAddIn20Qus: 0,
+  iSubIn20Qus: 0,
+  iAddIn20BlankQus: 0,
+  iSubIn20BlankQus: 0,
+  iAddIn100Qus: 0,
+  iSubIn100Qus: 0,
+  iAddIn100BlankQus: 0,
+  iSubIn100BlankQus: 0,
+  iAddIn1000TenQus: 0,
+  iAddIn1000NoCarryQus: 0,
+  iAddIn1000CarryQus: 0,
+  iAddIn1000BlankQus: 0,
+  iSubIn1000TenQus: 0,
+  iSubIn1000NoBorrowQus: 0,
+  iSubIn1000BorrowQus: 0,
+  iSubIn1000BlankQus: 0,
+  iAddIn10000TenQus: 0,
+  iAddIn10000NoCarryQus: 0,
+  iAddIn10000CarryQus: 0,
+  iAddIn10000BlankQus: 0,
+  iSubIn10000TenQus: 0,
+  iSubIn10000NoBorrowQus: 0,
+  iSubIn10000BorrowQus: 0,
+  iSubIn10000BlankQus: 0,
+  iMultiQus: 0,
+  iMultiBlankQus: 0,
+  iDivQus: 0,
+  iDivBlankQus: 0,
+  iDivWithRemainderQus: 0,
+  iDivWithRemainderBlankQus: 0,
+  iVertical100Qus: 0,
+  iVertical1000Qus: 0,
+  iVertical10000Qus: 0,
+  iMixQus: 0,
+  iDivRemainderQus: 0
+}
 
 const qusObj = reactive({});
 
@@ -270,43 +308,7 @@ onMounted(() => {
   if (storedQusObj && storedQusObj !== "undefined") {
     storedQusObjJson = JSON.parse(storedQusObj)
   }
-  Object.assign(qusObj, storedQusObjJson && storedQusObjJson.iAddIn20Qus ? storedQusObjJson : {
-    iAddIn20Qus: 2,
-    iSubIn20Qus: 2,
-    iAddIn20BlankQus: 0,
-    iSubIn20BlankQus: 0,
-    iAddIn100Qus: 4,
-    iSubIn100Qus: 4,
-    iAddIn100BlankQus: 2,
-    iSubIn100BlankQus: 2,
-    iAddIn1000TenQus: 2,
-    iAddIn1000NoCarryQus: 0,
-    iAddIn1000CarryQus: 0,
-    iAddIn1000BlankQus: 0,
-    iSubIn1000TenQus: 2,
-    iSubIn1000NoBorrowQus: 0,
-    iSubIn1000BorrowQus: 0,
-    iSubIn1000BlankQus: 0,
-    iAddIn10000TenQus: 2,
-    iAddIn10000NoCarryQus: 0,
-    iAddIn10000CarryQus: 0,
-    iAddIn10000BlankQus: 0,
-    iSubIn10000TenQus: 2,
-    iSubIn10000NoBorrowQus: 0,
-    iSubIn10000BorrowQus: 0,
-    iSubIn10000BlankQus: 0,
-    iMultiQus: 4,
-    iMultiBlankQus: 4,
-    iDivQus: 4,
-    iDivBlankQus: 4,
-    iDivWithRemainderQus: 0,
-    iDivWithRemainderBlankQus: 4,
-    iVertical100Qus: 2,
-    iVertical1000Qus: 1,
-    iVertical10000Qus: 1,
-    iMixQus: 4,
-    iDivRemainderQus: 4
-  });
+  Object.assign(qusObj, storedQusObjJson && storedQusObjJson.iAddIn20Qus ? storedQusObjJson : defaultJson);
   // 如果数据存在且是一个对象，则使用它，否则使用默认值
 })
 
@@ -391,6 +393,10 @@ const showDrawer = () => {
   divWithRemainderQuestionsList.value = splitArray(divWithRemainderQuestions, 3);
 
 
+};
+const resetCnt = () => {
+  // drawerVisible.value = true;
+  Object.assign(qusObj, defaultJson)
 };
 
 const splitArray = (inputArray, perChunk) => {

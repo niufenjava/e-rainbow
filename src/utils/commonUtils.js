@@ -35,16 +35,38 @@ export function isDiffUnitsDigitZero(num1, num2) {
     return unitsDigit === 0;
 }
 
+/**
+ * 生成随机问题数组
+ * @param {Function} genAllQuestionsFunc - 生成所有问题的函数
+ * @param {number} questionCount - 需要生成的问题数量
+ * @return {Array} 返回一个包含随机问题的数组
+ */
 export function genRandomQuestions(genAllQuestionsFunc, questionCount) {
+    // 调用函数生成所有问题
     const allQuestions = genAllQuestionsFunc();
+    // 初始化一个空数组用于存放随机问题
     const questions = [];
-    for (let i = 0; i < questionCount; i++) {
-        const index = Math.floor(Math.random() * allQuestions.length);
-        questions.push(allQuestions[index]);
+
+    if (questionCount > allQuestions.l) {
+        questions.push(allQuestions);
+    }else {
+        while (questions.length < questionCount) {
+            const index = Math.floor(Math.random() * allQuestions.length);
+            const selectedQuestion = allQuestions[index];
+            if (!questions.includes(selectedQuestion)) {
+                questions.push(selectedQuestion);
+            }
+            // If the number of unique questions in allQuestions is less than questionCount,
+            // break the loop to avoid an infinite loop.
+            if (questions.length === allQuestions.length) {
+                break;
+            }
+        }
     }
-    const result = questionCount > allQuestions.length ? allQuestions : questions;
-    shuffle(result);
-    return result;
+    // 打乱结果数组的顺序
+    shuffle(questions);
+    // 返回最终的问题数组
+    return questions;
 }
 
 export function shuffle(array) {

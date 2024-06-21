@@ -1,12 +1,6 @@
 import {
-    randomBoolean,
     randomMix,
-    isSumUnitsDigitZero,
-    isDiffUnitsDigitZero,
     genRandomQuestions,
-    shuffle,
-    calculate,
-    randomMixExclude1,
     randomBetween
 } from './commonUtils.js';
 
@@ -282,10 +276,8 @@ function genMixedIn10(questionCount) {
 // console.log(genMixedIn10(100))
 
 /**
- * 20以内加法（全部、按顺序）
+ * @name 20以内加法（全部、按顺序）
  * 例: 5 + 7 = 、 6 + 8 =
- *
- * @return {string[]} 返回一个包含所有可能的和在11到19之间的加法问题的数组
  */
 function genAddIn20All() {
     const questions = [];
@@ -303,8 +295,8 @@ function genAddIn20All() {
 // console.log(genAddIn20All())
 
 /**
- * @category 基础加减法
  * @name 20以内加法
+ * @category 基础加减法
  * @example: 5 + 7 = 、 6 + 8 =
  *
  * @return {string[]} 返回一个包含所有可能的和在11到19之间的加法问题的数组
@@ -313,7 +305,7 @@ export function genAddIn20(questionCount) {
     return genRandomQuestions(genAddIn20All, questionCount);
 }
 
-// console.log(genAddIn20(10))
+// console.log(genAddIn20(100))
 
 /**
  * 20以内加法（全部、按顺序、带括号）
